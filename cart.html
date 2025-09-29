@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VOID</title>
+    <link rel="icon" type="image/png" href="Assets/WebIcon.png">
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
+            position: relative
+        }
+
+        .menu,
+        .cartt {
+            display: flex;
+            align-items: center;
+            flex: 1
+        }
+
+        .menu {
+            justify-content: flex-start
+        }
+
+        .manus {
+            padding: 20px;
+            padding-left: 10px
+        }
+
+        .cartt {
+            justify-content: flex-end
+        }
+
+        .menushape {
+            background: #fff;
+            width: 20px;
+            height: 3px;
+            margin: 3px 4px;
+            display: block
+        }
+
+        @font-face {
+            font-family: 'Grooved';
+            src: url('Assets/GroovedPersonalUseRegular-9Y350.ttf') format('truetype');
+        }
+
+        .logoo a {
+            font-family: 'Grooved', sans-serif;
+            font-size: 40px;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 40px;
+            transition: transform 0.2s ease;
+        }
+
+        .logoo a:hover {
+            transform: scale(1.1)
+        }
+
+        .voideyes {
+            height: auto;
+            width: 20px;
+            padding-bottom: 10px;
+        }
+
+        .spidercartweb {
+            position: relative;
+            width: 120px;
+            transition: transform 0.5s ease;
+            /* تحريك سلس للـ scale */
+        }
+
+        .cart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            transition: transform 0.5s ease;
+            /* تحريك سلس للـ scale */
+        }
+
+        .spidercart {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            transform: rotate(90deg);
+            transform-origin: center;
+            transition: transform 1s ease-in-out;
+        }
+
+        /* Hover effects */
+        .spidercartweb:hover {
+            transform: scale(1.1);
+        }
+
+        .spidercartweb:hover .cart {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .spidercartweb:hover .spidercart {
+            transform: rotate(-180deg) translate(50px, -50px);
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 1px solid #444;
+        }
+
+        footer span {
+            color: #aaa
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0
+        }
+
+        .SM {
+            color: #aaa;
+            transition: color .2s ease
+        }
+
+        .SM:hover {
+            color: #fff;
+            cursor: pointer
+        }
+
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #3f3e3e;
+            overflow-x: hidden;
+            transition: width .25s ease;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: none;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .side-menu a {
+            padding: 30px 40px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #aaa;
+            display: block;
+            transition: background .15s, color .15s
+        }
+
+        .side-menu a:hover {
+            color: #fff;
+            background: #222
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 40px;
+            color: #aaa;
+            text-decoration: none
+        }
+
+        .side-menu .close-btn:hover {
+            color: #fff
+        }
+
+        .side-menu details summary {
+            cursor: pointer;
+            padding: 30px 40px;
+            color: #aaa;
+            font-size: 18px;
+            list-style: none;
+            position: relative;
+            display: block;
+        }
+
+        .side-menu details summary:hover {
+            color: #fff;
+            background: #222
+        }
+
+        .side-menu details summary::-webkit-details-marker {
+            display: none
+        }
+
+        .side-menu details summary::marker {
+            content: "";
+            display: none
+        }
+
+        .side-menu details summary::after {
+            content: "▸";
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            transition: transform .28s ease;
+        }
+
+        .side-menu details[open] summary::after {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height .35s ease, opacity .25s ease;
+        }
+
+        .details-content ul {
+            list-style: none;
+            margin: 0;
+            padding-left: 0
+        }
+
+        .details-content ul li a {
+            display: block;
+            padding: 8px 30px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 16px
+        }
+
+        .details-content ul li a:hover {
+            color: #fff;
+            background: #333
+        }
+
+        .side-menu details[open] .details-content {
+            max-height: 500px;
+            opacity: 1
+        }
+
+        .side-menu .side-logo {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100px;
+            height: auto;
+            object-fit: contain;
+            z-index: 1010;
+        }
+
+        .chain {
+            position: absolute;
+            top: 60px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: sway 4s infinite ease-in-out;
+            transform-origin: top center;
+            z-index: 1000;
+        }
+
+        .chain span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            transform-origin: top center;
+            animation: link-sway 2s infinite ease-in-out;
+            margin-top: -10px;
+        }
+
+        /* odd (فردي) chain1.png */
+        .chain span:nth-child(odd) {
+            background-image: url('Assets/chain1.png');
+        }
+
+        /* even (زوجي) chain2.png */
+        .chain span:nth-child(even) {
+            background-image: url('Assets/chain2.png');
+        }
+
+
+        .chain span:nth-child(1) {
+            animation-delay: 1.4s;
+        }
+
+        .chain span:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        .chain span:nth-child(3) {
+            animation-delay: 1.6s;
+        }
+
+        .chain span:nth-child(4) {
+            animation-delay: 1.7s;
+        }
+
+        .chain span:nth-child(5) {
+            animation-delay: 1.8s;
+        }
+
+        .chain span:nth-child(6) {
+            animation-delay: 1.9s;
+        }
+
+        .chain span:nth-child(7) {
+            animation-delay: 2.0s;
+        }
+
+        .chain span:nth-child(8) {
+            animation-delay: 2.1s;
+        }
+
+        .chain span:nth-child(9) {
+            animation-delay: 2.2s;
+        }
+
+        .chain span:nth-child(10) {
+            animation-delay: 2.3s;
+        }
+
+        .chain span:nth-child(11) {
+            animation-delay: 2.4s;
+        }
+
+        .chain span:nth-child(12) {
+            animation-delay: 2.5s;
+        }
+
+        .chain span:nth-child(13) {
+            animation-delay: 2.6s;
+        }
+
+        .chain span:nth-child(14) {
+            animation-delay: 2.7s;
+        }
+
+        .chain span:nth-child(15) {
+            animation-delay: 2.8s;
+        }
+
+        .chain span:nth-child(16) {
+            animation-delay: 2.9s;
+        }
+
+        .chain span:nth-child(17) {
+            animation-delay: 3.0s;
+        }
+
+        .chain span:nth-child(18) {
+            animation-delay: 3.1s;
+        }
+
+        .chain span:nth-child(19) {
+            animation-delay: 3.2s;
+        }
+
+        .chain span:nth-child(20) {
+            animation-delay: 3.3s;
+        }
+
+        .chain span:nth-child(21) {
+            animation-delay: 3.4s;
+        }
+
+        .chain span:nth-child(22) {
+            animation-delay: 3.5s;
+        }
+
+        .chain span:nth-child(23) {
+            animation-delay: 3.6s;
+        }
+
+        .chain span:nth-child(24) {
+            animation-delay: 3.7s;
+        }
+
+        .chain span:nth-child(25) {
+            animation-delay: 3.8s;
+        }
+
+        .chain span:nth-child(26) {
+            animation-delay: 3.9s;
+        }
+
+        .chain span:nth-child(27) {
+            animation-delay: 4.0s;
+        }
+
+        .chain span:nth-child(28) {
+            animation-delay: 4.1s;
+        }
+
+        .chain span:nth-child(29) {
+            animation-delay: 4.2s;
+        }
+
+        .chain span:nth-child(30) {
+            animation-delay: 4.3s;
+        }
+
+        .chain span:nth-child(31) {
+            animation-delay: 4.4s;
+        }
+
+        .chain span:nth-child(32) {
+            animation-delay: 4.5s;
+        }
+
+        .chain span:nth-child(33) {
+            animation-delay: 4.6s;
+        }
+
+        .chain span:nth-child(34) {
+            animation-delay: 4.7s;
+        }
+
+        .chain span:nth-child(35) {
+            animation-delay: 4.8s;
+        }
+
+        .chain span:nth-child(36) {
+            animation-delay: 4.9s;
+        }
+
+        .chain span:nth-child(37) {
+            animation-delay: 5.0s;
+        }
+
+        .chain span:nth-child(38) {
+            animation-delay: 5.1s;
+        }
+
+        .chain span:nth-child(39) {
+            animation-delay: 5.2s;
+        }
+
+        .chain span:nth-child(40) {
+            animation-delay: 5.3s;
+        }
+
+        @keyframes sway {
+            25% {
+                transform: rotate(2deg);
+            }
+
+            75% {
+                transform: rotate(-2deg);
+            }
+        }
+
+        @keyframes link-sway {
+            25% {
+                transform: rotate(17deg);
+            }
+
+            75% {
+                transform: rotate(-17deg);
+            }
+        }
+
+        .chain,
+        .side-logo {
+            pointer-events: none;
+        }
+
+        .logoo-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .chainweel {
+            position: absolute;
+            top: -100px;
+            /* هنا بتطلع لفوق */
+            left: 50%;
+            width: 200px;
+            /* حجم كبير */
+            height: 175px;
+            /* حجم كبير */
+            transform: translateX(-50%) rotate(0deg);
+            transform-origin: center;
+            animation: rotate-wheel 55s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+            /* تخليها تحت VOID */
+        }
+
+        @keyframes rotate-wheel {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        .random-img {
+            position: fixed;
+            width: 25px;
+            /* حجم أصغر */
+            height: auto;
+            /* opacity: 0.7; */
+            /* شفافية 30% */
+            pointer-events: none;
+            animation: jumpFade 2.5s ease-in-out forwards;
+            /* زمن أطول لحركة أنعم */
+            z-index: 9999;
+        }
+
+@keyframes jumpFade {
+  0% {
+    opacity: 0.3;         /* تبقى شفافة شوية */
+    transform: translateY(-50px) scale(1); /* تبدأ من فوق */
+  }
+  100% {
+    opacity: 0;           /* تختفي */
+    transform: translateY(150px) scale(0.5); /* تقع لتحت */
+  }
+}
+
+.random-img {
+  animation: jumpFade 1.5s ease-in forwards;
+}
+.random-img {
+  animation: jumpFade 1.5s ease-in forwards;
+}
+
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <span class="menu">
+            <span class="manus" onclick="openMenu()">
+                <span class="menushape"></span>
+                <span class="menushape"></span>
+                <span class="menushape"></span>
+            </span>
+        </span>
+        <span class="voideyes"><img src="Assets/voideyesopened.png" alt="voideyes" width="117px" height="auto"></span>
+        <span class="logoo-wrapper">
+            <span class="logoo"><a href="Void.html">VOID</a></span>
+            <img src="Assets/chainweel.png" alt="chainweel" class="chainweel" width="100px" height="auto">
+        </span>
+        <span class="cartt"><a href="cart.html">
+                <div class="spidercartweb">
+                    <img src="Assets/spiderCartWeb.png" alt="spidercartweb" width="120px">
+                    <img src="Assets/Cart.png" alt="cart" class="cart">
+                    <img src="Assets/spiderCart.png" alt="spidercart" class="spidercart">
+                </div>
+            </a></span>
+    </header>
+
+    <div id="sideMenu" class="side-menu" aria-hidden="true">
+        <img src="Assets/brokenweb.png" alt="logo" class="side-logo">
+        <div class="chain">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <a href="#" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="#">ShopAll</a>
+        <ul style="padding-left:0;margin:0;">
+            <li>
+                <details>
+                    <summary>Categories</summary>
+                    <div class="details-content">
+                        <ul>
+                            <li><a href="#">cate1</a></li>
+                            <li><a href="#">cate2</a></li>
+                            <li><a href="#">cate3</a></li>
+                            <li><a href="#">cate4</a></li>
+                        </ul>
+                    </div>
+                </details>
+            </li>
+        </ul>
+        <a href="#">AboutUS</a>
+        <a href="#">ContactUS</a>
+    </div>
+
+    <footer>
+        <span>
+            <ul>
+                <li style="color:#fff">SeeUsIn</li>
+                <li class="SM"><a href="#">Instagram</a></li>
+                <li class="SM"><a href="#">TikTok</a></li>
+                <li class="SM"><a href="#">WhatsApp</a></li>
+                <li class="SM"><a href="#">Telegram</a></li>
+                <li class="SM"><a href="#">Discord</a></li>
+            </ul>
+        </span>
+        <span class="logoo"><a href="Void.html">VOID</a></span>
+        <span>
+            <ul>
+                <li class="SM"><a href="#">PrivecyPolicy</a></li>
+                <li class="SM"><a href="#">RefundPolicy</a></li>
+                <li class="SM"><a href="#">OurTerms</a></li>
+                <li class="SM"><a href="#">OurService</a></li>
+            </ul>
+        </span>
+    </footer>
+
+    <script>
+        function openMenu() {
+            const m = document.getElementById('sideMenu');
+            m.style.width = '250px';
+            m.setAttribute('aria-hidden', 'false');
+        }
+        function closeMenu() {
+            const m = document.getElementById('sideMenu');
+            m.style.width = '0';
+            m.setAttribute('aria-hidden', 'true');
+            document.querySelectorAll('#sideMenu details[open]').forEach(d => {
+                d.removeAttribute('open');
+                const c = d.querySelector('.details-content');
+                if (c) {
+                    c.style.maxHeight = '0';
+                    c.style.opacity = '0';
+                }
+            });
+        }
+
+        document.querySelectorAll('#sideMenu details').forEach(details => {
+            const content = details.querySelector('.details-content');
+            if (!content) return;
+
+            content.style.overflow = 'hidden';
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+            content.style.transition = 'max-height .35s ease, opacity .25s ease';
+
+            const summary = details.querySelector('summary');
+            summary.addEventListener('click', e => {
+                e.preventDefault();
+                if (details.open) {
+                    const h = content.scrollHeight;
+                    content.style.maxHeight = h + 'px';
+                    void content.offsetHeight;
+                    content.style.maxHeight = '0';
+                    content.style.opacity = '0';
+                    content.addEventListener('transitionend', function handler() {
+                        details.removeAttribute('open');
+                        content.removeEventListener('transitionend', handler);
+                    });
+                } else {
+                    details.setAttribute('open', 'true');
+                    const h = content.scrollHeight;
+                    content.style.maxHeight = h + 'px';
+                    content.style.opacity = '1';
+                    content.addEventListener('transitionend', function handler() {
+                        content.style.maxHeight = '';
+                        content.removeEventListener('transitionend', handler);
+                    });
+                }
+            });
+        });
+        const logoo = document.querySelector('.logoo a');
+        const voideyesImg = document.querySelector('.voideyes img');
+
+        logoo.addEventListener('mouseenter', () => {
+            let count = 0;
+            const maxCount = 3;
+            const interval = 100; // مدة التبديل بالمللي ثانية
+
+            const swapInterval = setInterval(() => {
+                voideyesImg.src = (voideyesImg.src.includes('voideyesopened.png'))
+                    ? 'Assets/voideyesclosed.png'
+                    : 'Assets/voideyesopened.png';
+
+                count++;
+                if (count >= maxCount * 2) { // كل دورة فيها تغييرين (open→closed→open)
+                    clearInterval(swapInterval);
+                    voideyesImg.src = 'Assets/voideyesopened.png'; // رجوع للصورة الأصلية
+                }
+            }, interval);
+        });
+        const images = [
+            'Assets/colors/8.png',
+            'Assets/colors/7.png',
+            'Assets/colors/10.png',
+            'Assets/colors/9.png',
+            'Assets/colors/6.png',
+            'Assets/colors/5.png',
+            'Assets/colors/4.png',
+            'Assets/colors/3.png',
+            'Assets/colors/2.png',
+            'Assets/colors/1.png'
+        ];
+
+        function spawnRandomImage() {
+            // اختيار صورة عشوائي
+            const imgSrc = images[Math.floor(Math.random() * images.length)];
+
+            // إنشاء العنصر
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.classList.add('random-img');
+
+            // حجم الشاشة
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+
+            // مكان عشوائي
+            const x = Math.random() * (winWidth - 100);
+            const y = Math.random() * (winHeight - 100);
+
+            img.style.left = x + 'px';
+            img.style.top = y + 'px';
+
+            // إضافته للصفحة
+            document.body.appendChild(img);
+
+            // بعد 1.5 ثانية (وقت الأنيميشن) نشيله
+            setTimeout(() => {
+                img.remove();
+            }, 1500);
+        }
+
+        // كل 3 ثواني تعمل سباون لصورة
+        setInterval(spawnRandomImage, 3000);
+        function spawnRandomImage() {
+            // اختيار صورة عشوائي
+            const imgSrc = images[Math.floor(Math.random() * images.length)];
+
+            // إنشاء العنصر
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.classList.add('random-img');
+
+            // حجم الشاشة
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+
+            // مكان عشوائي
+            const x = Math.random() * (winWidth - 100);
+            const y = Math.random() * (winHeight - 100);
+
+            img.style.left = x + 'px';
+            img.style.top = y + 'px';
+
+            // إضافته للصفحة
+            document.body.appendChild(img);
+
+            // بعد 1.5 ثانية (وقت الأنيميشن) نشيله
+            setTimeout(() => {
+                img.remove();
+            }, 1500);
+        }
+
+        // كل 3 ثواني تعمل سباون لصورة
+        setInterval(spawnRandomImage, 2500);
+        function spawnRandomImage() {
+            // اختيار صورة عشوائي
+            const imgSrc = images[Math.floor(Math.random() * images.length)];
+
+            // إنشاء العنصر
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.classList.add('random-img');
+
+            // حجم الشاشة
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+
+            // مكان عشوائي
+            const x = Math.random() * (winWidth - 100);
+            const y = Math.random() * (winHeight - 100);
+
+            img.style.left = x + 'px';
+            img.style.top = y + 'px';
+
+            // إضافته للصفحة
+            document.body.appendChild(img);
+
+            // بعد 1.5 ثانية (وقت الأنيميشن) نشيله
+            setTimeout(() => {
+                img.remove();
+            }, 1500);
+        }
+
+        // كل 3 ثواني تعمل سباون لصورة
+        setInterval(spawnRandomImage, 2000);
+        function spawnRandomImage() {
+            // اختيار صورة عشوائي
+            const imgSrc = images[Math.floor(Math.random() * images.length)];
+
+            // إنشاء العنصر
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.classList.add('random-img');
+
+            // حجم الشاشة
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+
+            // مكان عشوائي
+            const x = Math.random() * (winWidth - 100);
+            const y = Math.random() * (winHeight - 100);
+
+            img.style.left = x + 'px';
+            img.style.top = y + 'px';
+
+            // إضافته للصفحة
+            document.body.appendChild(img);
+
+            // بعد 1.5 ثانية (وقت الأنيميشن) نشيله
+            setTimeout(() => {
+                img.remove();
+            }, 1500);
+        }
+
+        // كل 3 ثواني تعمل سباون لصورة
+        setInterval(spawnRandomImage, 1500);
+    </script>
+</body>
+
+</html>
